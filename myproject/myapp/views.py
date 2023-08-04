@@ -1,6 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Post
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from .forms import PostForm
+
 
 def post_list(request):
     if request.user.is_authenticated:
@@ -9,17 +15,61 @@ def post_list(request):
     else:
         # Kullanıcı giriş yapmamışsa, tüm postları listeleyelim
         posts = Post.objects.filter(is_deleted=False)
-    
+
     return render(request, 'myapp/post_list.html', {'posts': posts})
 
 
 def post_detail(request, pk):
-    # Burada post detayını almak için gerekli işlemleri yapın
     return HttpResponse(f"Post Detail for Post ID: {pk}")
 
 
+def kayit(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            kullanici = form.save()
+            login(request, kullanici)
+            return redirect('post_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'kayit.html', {'form': form})
 
 
 
+def giris(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            kullanici = authenticate(username=username, password=password)
+            if kullanici is not None:
+                login(request, kullanici)
+                return redirect('post_list')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'giris.html', {'form': form})
 
+
+
+def cikis(request):
+    logout(request)
+    return redirect('giris')
+
+
+
+def post_create(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+        
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
     
+    return render(request, 'myapp/post_create.html', {'form': form})
+
+
