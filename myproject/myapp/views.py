@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseForbidden 
 from .models import Post
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -8,6 +8,12 @@ from django.contrib.auth import login as auth_login, logout as auth_logout, auth
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 
+@login_required
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.user != request.user:
+        return HttpResponseForbidden("You do not have permission to access this post.")
+    return render(request, 'myapp/post_detail.html', {'post': post})
 
 def post_list(request):
     if request.user.is_authenticated:
@@ -20,8 +26,12 @@ def post_list(request):
     return render(request, 'myapp/post_list.html', {'posts': posts})
 
 
+@login_required
 def post_detail(request, pk):
-    return HttpResponse(f"Post Detail for Post ID: {pk}")
+    post = get_object_or_404(Post, pk=pk)
+    if post.user != request.user:
+        return HttpResponseForbidden("You do not have permission to access this post.")
+    return render(request, 'myapp/post_detail.html', {'post': post})
 
 
 def register(request):
@@ -70,4 +80,28 @@ def post_create(request):
     
     return render(request, 'myapp/post_create.html', {'form': form})
 
+@login_required
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk, user=request.user)
+    if request.method == 'POST':
+        post.is_deleted = not post.is_deleted
+        post.save()
+    return redirect('post_detail', pk=pk)
 
+
+@login_required
+def post_update(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    
+    if post.user != request.user:
+        return HttpResponseForbidden("You do not have permission to update this post.")
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    
+    return render(request, 'myapp/post_form.html', {'form': form})
