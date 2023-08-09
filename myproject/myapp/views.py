@@ -23,7 +23,7 @@ def post_detail(request, pk):
     return HttpResponse(f"Post Detail for Post ID: {pk}")
 
 
-def kayit(request):
+def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -32,11 +32,11 @@ def kayit(request):
             return redirect('post_list')
     else:
         form = UserCreationForm()
-    return render(request, 'kayit.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 
 
-def giris(request):
+def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -48,13 +48,13 @@ def giris(request):
                 return redirect('post_list')
     else:
         form = AuthenticationForm()
-    return render(request, 'giris.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
 
 
 def cikis(request):
     logout(request)
-    return redirect('giris')
+    return redirect('login')
 
 
 
