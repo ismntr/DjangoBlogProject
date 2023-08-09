@@ -52,7 +52,7 @@ def login(request):
 
 
 
-def cikis(request):
+def logout(request):
     logout(request)
     return redirect('login')
 
