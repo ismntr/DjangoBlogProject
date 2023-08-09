@@ -31,9 +31,11 @@ Projeyi indirdikten sonra çalıştırmak için aşağıdaki adımları izleyebi
 Terminali açın ve proje dizinine (projenizin manage.py dosyasının bulunduğu dizine) gidin:
 
 `cd /path/to/your/project`
+
 Sanal ortamınızı etkinleştirin (eğer etkinleştirmediyseniz):
 
 `source venv/bin/activate`
+
 Projenizi çalıştırın:
 
 `python manage.py runserver`
