@@ -26,4 +26,22 @@ Son kullanıcılar tüm postlari görebilir ama duzenleyemez.
 Eğer login olduysa kendi postlarini duzenleyebilir.
 
 
+Projeyi indirdikten sonra çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
+
+Terminali açın ve proje dizinine (projenizin manage.py dosyasının bulunduğu dizine) gidin:
+
+`cd /path/to/your/project`
+Sanal ortamınızı etkinleştirin (eğer etkinleştirmediyseniz):
+
+`source venv/bin/activate`
+Projenizi çalıştırın:
+
+`python manage.py runserver`
+
+Bu komut, sunucuyu başlatacaktır. Sunucu başladığında, terminalde bir çıktı görünecektir. 
+Genellikle http://127.0.0.1:8000/ veya http://localhost:8000/ adresine giderek projenizin çalıştığını görebilirsiniz.
+
+Tarayıcınızı açın ve projenizi belirtilen adreste görüntüleyin.
+
+
 
