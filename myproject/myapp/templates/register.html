@@ -2,10 +2,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Kayıt Ol</h2>
+  <h2>Register</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Kayıt Ol</button>
+    <button type="submit">Register</button>
   </form>
 {% endblock %}

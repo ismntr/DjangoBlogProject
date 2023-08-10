@@ -12,11 +12,12 @@
             {% endif %}
             <form method="post" action="{% url 'post_delete' post.pk %}">
                 {% csrf_token %}
-                <p class="card-text">Silindi mi?: {% if post.is_deleted %}Evet{% else %}Hayır{% endif %}</p>
-                <button type="submit" class="btn btn-danger">{% if post.is_deleted %}Geri Al{% else %}Sil{% endif %}</button>
+                <p class="card-text">Deleted?: {% if post.is_deleted %}Yes{% else %}No{% endif %}</p>
+                
             </form>
             {% if post.user == request.user %}
-            <a href="{% url 'post_update' pk=post.pk %}" class="btn btn-primary">Güncelle</a>
+            <button type="submit" class="btn btn-danger">{% if post.is_deleted %}Undelete{% else %}Delete{% endif %}</button>
+            <a href="{% url 'post_update' pk=post.pk %}" class="btn btn-primary">Update</a>
             {% endif %}
         </div>
     </div>

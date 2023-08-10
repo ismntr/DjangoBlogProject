@@ -8,11 +8,11 @@ from django.contrib.auth import login as auth_login, logout as auth_logout, auth
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 
-@login_required
+#@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if post.user != request.user:
-        return HttpResponseForbidden("You do not have permission to access this post.")
+    # if post.user != request.user:
+    #     return HttpResponseForbidden("You do not have permission to access this post.")
     return render(request, 'myapp/post_detail.html', {'post': post})
 
 def post_list(request):
@@ -25,21 +25,12 @@ def post_list(request):
 
     return render(request, 'myapp/post_list.html', {'posts': posts})
 
-
-@login_required
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if post.user != request.user:
-        return HttpResponseForbidden("You do not have permission to access this post.")
-    return render(request, 'myapp/post_detail.html', {'post': post})
-
-
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            auth_login(request, user)
             return redirect('post_list')
     else:
         form = UserCreationForm()
@@ -91,11 +82,8 @@ def post_delete(request, pk):
 
 @login_required
 def post_update(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    
-    if post.user != request.user:
-        return HttpResponseForbidden("You do not have permission to update this post.")
-    
+    post = get_object_or_404(Post, pk=pk, user=request.user)
+
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():

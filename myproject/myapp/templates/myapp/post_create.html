@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Yeni Post Ekle</title>
+    <title>New Post</title>
     <!-- Bootstrap CSS dosyasını burada ekleyin -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-4">Yeni Post Ekle</h1>
+        <h1 class="mt-4">New Post</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group row">
@@ -28,8 +28,8 @@
                     {{ form.image }}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Kaydet</button>
-            <a href="{% url 'post_list' %}" class="btn btn-secondary mt-3">Geri Dön</a>
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+            <a href="{% url 'post_list' %}" class="btn btn-secondary mt-3">Back</a>
         </form>
     </div>
 

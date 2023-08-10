@@ -14,8 +14,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        app_label = 'myapp'  
+    # class Meta:
+    #     app_label = 'myapp'  
 
 
   
