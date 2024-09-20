@@ -1,49 +1,50 @@
-# DjangoBlogProject UPOD Projesi
-Proje Amacı: Kullanıcının kendi postlarını görebildiği, 
-yeni post ekleyebildiği, 
-var olan postlarını güncelleyebildiği/silebildiği 
-bir web uygulamasını Django(Python) ile yazınız.
 
-Postlar başlık, 
-açıklama ve resim alanlarına sahiptir. 
-Başlık ve açıklama alanlarının olması zorunludur. 
-Resim eklenebilmesi artı puan getirecek ve yapılmadığında puan kırılmayacak bir görevdir.
+# DjangoBlogProject - UPOD (User Post Dashboard) Project
 
-Adım 1: Proje amacını gerçekleştirecek olan web uygulamasının veri tabanı işlemlerini(CRUD) yapınız. 
-Admin panel kullanarak postlara bakılabilmeli, 
-eklenebilmeli ve güncellenebilmelidir. 
-(shell kullanarak da yapılabilir)
+## Description
+The DjangoBlogProject is a web application built with Django (Python) that allows users to manage their personal blog posts. Users can create, view, update, and delete their own posts. Each post contains a title, description, and optionally, an image. The application also includes an admin panel for managing posts and user authentication features for login and registration.
 
-Adım 2: Postlarda silme işlemi, 
-veri tabanından kalıcı bir silme şeklinde yapılmasın. 
-Her post is_deleted isimli bir alana sahip olsun. 
-Silinen postların is_deleted alanı True yapılsın. 
-Ve silinenler gösterilmesin.
+The project is designed to be user-friendly, with features like soft deletion (where deleted posts remain in the database but are hidden from the interface) and personalized post management, ensuring that users can only view and edit their own content. Public users can view all posts but cannot edit them.
 
-Adım 3: Kullanıcının login ve register olabildiği arayüzü yapınız. 
-Kullanıcı yalnız kendi postlarını görsün ve güncellesin. 
-Son kullanıcılar tüm postlari görebilir ama duzenleyemez. 
-Eğer login olduysa kendi postlarini duzenleyebilir.
+## Project Steps
 
+### Step 1: Database Operations (CRUD)
+- Implement all CRUD operations (Create, Read, Update, Delete) for posts.
+- Posts must include fields for the title, description (both required), and an optional image.
+- Admins should be able to manage posts using the Django admin panel (or via Django shell).
 
-Projeyi indirdikten sonra çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
+### Step 2: Soft Deletion
+- Instead of permanently deleting posts from the database, a soft deletion is used.
+- Each post has an `is_deleted` field, which is set to `True` when a post is deleted.
+- Deleted posts will not be shown on the user interface.
 
-Terminali açın ve proje dizinine (projenizin manage.py dosyasının bulunduğu dizine) gidin:
+### Step 3: User Authentication and Interface
+- Implement user login and registration.
+- Each user should only be able to see and edit their own posts.
+- Public users (not logged in) can view all posts but cannot edit them.
+- Logged-in users can edit their own posts.
 
-`cd /path/to/your/project`
+## Running the Project
 
-Sanal ortamınızı etkinleştirin (eğer etkinleştirmediyseniz):
+Follow these steps to run the project after downloading:
 
-`source venv/bin/activate`
+1. Open a terminal and navigate to the project directory (where the `manage.py` file is located):
+   ```bash
+   cd /path/to/your/project
+   ```
 
-Projenizi çalıştırın:
+2. Activate your virtual environment (if it's not already activated):
+   ```bash
+   source venv/bin/activate
+   ```
 
-`python manage.py runserver`
+3. Run the project:
+   ```bash
+   python manage.py runserver
+   ```
 
-Bu komut, sunucuyu başlatacaktır. Sunucu başladığında, terminalde bir çıktı görünecektir. 
-Genellikle http://127.0.0.1:8000/ veya http://localhost:8000/ adresine giderek projenizin çalıştığını görebilirsiniz.
+4. Once the server starts, open your browser and go to:
+   - http://127.0.0.1:8000/ 
+   - or http://localhost:8000/
 
-Tarayıcınızı açın ve projenizi belirtilen adreste görüntüleyin.
-
-
-
+Here, you will be able to see the project live.
