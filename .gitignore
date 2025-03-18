@@ -72,6 +72,9 @@ cover/
 *.mo
 
 # Django stuff:
+*.log
+local_settings.py
+media/
 
 # Flask stuff:
 instance/
@@ -188,11 +191,11 @@ cython_debug/
 
 # Translations
 
-# Django stuff:
+# Django stuff
 
-# Flask stuff:
+# Flask stuff
 
-# Scrapy stuff:
+# Scrapy stuff
 
 # Sphinx documentation
 
@@ -262,5 +265,14 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+# SQLite database files
+*.sqlite3
+db.sqlite3
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python

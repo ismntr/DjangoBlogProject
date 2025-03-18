@@ -12,7 +12,7 @@
             {% endif %}
             <form method="post" action="{% url 'post_delete' post.pk %}">
                 {% csrf_token %}
-                <p class="card-text">Deleted?: {% if post.is_deleted %}Yes{% else %}No{% endif %}</p>
+                {% comment %} <p class="card-text">Deleted?: {% if post.is_deleted %}Yes{% else %}No{% endif %}</p> {% endcomment %}
                 
             </form>
             {% if post.user == request.user %}
